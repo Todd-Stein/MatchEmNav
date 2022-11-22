@@ -10,8 +10,14 @@ import UIKit
 class GameSceneViewController: UIViewController {
 
 
-
-
+    @IBAction func unwindToPrev(unwindSegue: UIStoryboardSegue) {
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navVC = segue.destination as? NavigationViewController
+        navVC?.gameVC = self
+    }
+    
     
     @IBOutlet weak var pauseButton: UIButton!
     @IBAction func buttonPress(_ sender: Any) {
@@ -40,7 +46,7 @@ class GameSceneViewController: UIViewController {
     private var startGame:Bool = false
     
     private var timeRemainingTimer:Timer?
-    private var totalTime:Double = 12
+    public var totalTime:Double = 12
     private var timePassed:Double = 0 {
         didSet{GameViewLabel?.text = gameInfo}
     }

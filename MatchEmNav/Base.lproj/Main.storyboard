@@ -90,44 +90,79 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="6xc-JB-4Aw"/>
+                <swipeGestureRecognizer direction="right" id="6xc-JB-4Aw">
+                    <connections>
+                        <segue destination="qhy-37-L1p" kind="show" id="9oJ-kE-JJZ"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="28.985507246376812" y="83.705357142857139"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="1Bd-zE-kHd">
+        <!--Navigation View Controller-->
+        <scene sceneID="bT6-rg-OSK">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="BqZ-38-kq7" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eij-0G-B4W">
+                <viewController modalPresentationStyle="fullScreen" id="qhy-37-L1p" customClass="NavigationViewController" customModule="MatchEmNav" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6EP-o5-ueC" customClass="navi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8dd-xx-sCm">
-                                <rect key="frame" x="18" y="153" width="378" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
-                            <colorWell contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="q5k-He-Dm3">
-                                <rect key="frame" x="125" y="239" width="165" height="124"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </colorWell>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="G1V-WM-sVN">
-                                <rect key="frame" x="160" y="393" width="94" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stepper>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGA-0P-vaP">
-                                <rect key="frame" x="20" y="48" width="75" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oer-q1-nzN">
+                                <rect key="frame" x="19" y="48" width="78" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system" title="Back"/>
+                                <connections>
+                                    <segue destination="EeJ-rB-i7v" kind="unwind" unwindAction="unwindToPrevWithUnwindSegue:" id="a9c-Q9-7EW"/>
+                                </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3B1-qW-ghw">
+                                <rect key="frame" x="18" y="151" width="378" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="gameSpeedUpdate:" destination="qhy-37-L1p" eventType="valueChanged" id="8gw-IG-qMu"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Speed: 0.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYP-2q-v6C">
+                                <rect key="frame" x="20" y="137" width="232" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <colorWell contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fGg-fh-kDU">
+                                <rect key="frame" x="136" y="239" width="142" height="129"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </colorWell>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="12" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-im-M30">
+                                <rect key="frame" x="241" y="395" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="gameDurationUpdate:" destination="qhy-37-L1p" eventType="valueChanged" id="Byf-lB-Ost"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Duration: 15s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZS-Dl-Vk2">
+                                <rect key="frame" x="35" y="401" width="181" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="NS2-hT-sAF"/>
+                        <viewLayoutGuide key="safeArea" id="gGJ-4h-og7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="M9n-j4-oX4"/>
+                    <connections>
+                        <outlet property="gameDurationLabel" destination="OZS-Dl-Vk2" id="0J2-qI-ilR"/>
+                        <outlet property="gameDurationValue" destination="nO4-im-M30" id="AGb-c9-XlH"/>
+                        <outlet property="gameSpeedLabel" destination="CYP-2q-v6C" id="ofB-pm-27r"/>
+                        <outlet property="gameSpeedVal" destination="3B1-qW-ghw" id="Q5C-Ke-RfR"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3XW-Ak-hTx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTf-eg-nsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="EeJ-rB-i7v" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="934.78260869565224" y="358.92857142857139"/>
+            <point key="canvasLocation" x="847.82608695652175" y="310.71428571428572"/>
         </scene>
         <!--Pause Menu-->
         <scene sceneID="gma-ut-pMO">
@@ -157,6 +192,9 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="h7x-uY-5P6" kind="unwind" unwindAction="unwindToPrevWithUnwindSegue:" id="NpD-a4-1sW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nxa-81-Snd">
                                 <rect key="frame" x="131" y="299" width="153" height="81"/>
@@ -172,6 +210,9 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="qhy-37-L1p" kind="show" id="lrf-xZ-Fqy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoX-Yi-Skd">
                                 <rect key="frame" x="131" y="433" width="153" height="81"/>
@@ -195,11 +236,16 @@
                     <navigationItem key="navigationItem" id="bOw-yo-Wmb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6x-eB-wy7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="h7x-uY-5P6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="844.92753623188412" y="-467.41071428571428"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lrf-xZ-Fqy"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="pause.fill" catalog="system" width="117" height="128"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
