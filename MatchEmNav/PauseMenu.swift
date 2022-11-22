@@ -1,19 +1,13 @@
 //
-//  NavigationViewController.swift
+//  PauseMenu.swift
 //  MatchEmNav
 //
-//  Created by Guest User on 11/21/22.
+//  Created by Guest User on 11/22/22.
 //
 
 import UIKit
 
-class NavigationViewController: UIViewController {
-    
-    
-    
-    @IBAction func back(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
+class PauseMenu: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +19,4 @@ class NavigationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
-
-    
 }

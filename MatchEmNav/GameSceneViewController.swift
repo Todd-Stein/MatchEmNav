@@ -13,6 +13,7 @@ class GameSceneViewController: UIViewController {
 
 
     
+    @IBOutlet weak var pauseButton: UIButton!
     @IBAction func buttonPress(_ sender: Any) {
         print("press")
     }
@@ -22,6 +23,8 @@ class GameSceneViewController: UIViewController {
     
     @IBAction func startButton(_ sender: UIButton) {
         startGameRunning()
+        pauseButton.isEnabled = true
+        pauseButton.alpha = 1.0
         sender.removeFromSuperview()
     }
     private let rectSizeMin:CGFloat = 50.0, rectSizeMax:CGFloat = 150.0
@@ -61,7 +64,8 @@ class GameSceneViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        pauseButton.isEnabled = false
+        pauseButton.alpha = 0.0
         // Do any additional setup after loading the view.
         
         

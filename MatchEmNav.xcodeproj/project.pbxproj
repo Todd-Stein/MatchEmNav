@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACE94057292D761600521421 /* PauseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE94056292D761600521421 /* PauseMenu.swift */; };
 		ACEA16B5292C160900A636CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA16B4292C160900A636CE /* AppDelegate.swift */; };
 		ACEA16B7292C160900A636CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA16B6292C160900A636CE /* SceneDelegate.swift */; };
 		ACEA16BC292C160900A636CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACEA16BA292C160900A636CE /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ACE94056292D761600521421 /* PauseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenu.swift; sourceTree = "<group>"; };
 		ACEA16B1292C160900A636CE /* MatchEmNav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchEmNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACEA16B4292C160900A636CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACEA16B6292C160900A636CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				ACEA16BF292C160A00A636CE /* LaunchScreen.storyboard */,
 				ACEA16C2292C160A00A636CE /* Info.plist */,
 				ACEA16E6292C18CA00A636CE /* NavigationViewController.swift */,
+				ACE94056292D761600521421 /* PauseMenu.swift */,
 			);
 			path = MatchEmNav;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				ACEA16E7292C18CA00A636CE /* NavigationViewController.swift in Sources */,
 				ACEA16B5292C160900A636CE /* AppDelegate.swift in Sources */,
+				ACE94057292D761600521421 /* PauseMenu.swift in Sources */,
 				ACEA16E5292C179F00A636CE /* GameSceneViewController.swift in Sources */,
 				ACEA16B7292C160900A636CE /* SceneDelegate.swift in Sources */,
 			);
