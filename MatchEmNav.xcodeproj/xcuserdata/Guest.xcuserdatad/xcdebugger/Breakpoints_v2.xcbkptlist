@@ -14,10 +14,10 @@
             filePath = "MatchEmNav/GameSceneViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "GameSceneViewController"
-            landmarkType = "3">
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "newRectTimeInterval"
+            landmarkType = "24">
             <Locations>
                <Location
                   uuid = "6E4E831B-CB13-4E55-A605-934CFFF5A8C7 - 16b62b69d66c0db3"

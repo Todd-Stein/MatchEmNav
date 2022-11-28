@@ -9,7 +9,15 @@ import UIKit
 
 class GameSceneViewController: UIViewController {
 
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(touches.count)
+        if(touches.count == 2) {
+            pause = !pause
+            print("eqwrgt")
+        }
+    }
+    
     @IBAction func unwindToPrev(unwindSegue: UIStoryboardSegue) {
         
     }
@@ -19,7 +27,6 @@ class GameSceneViewController: UIViewController {
     }
     
     
-    @IBOutlet weak var pauseButton: UIButton!
     @IBAction func buttonPress(_ sender: Any) {
         print("press")
     }
@@ -29,21 +36,22 @@ class GameSceneViewController: UIViewController {
     
     @IBAction func startButton(_ sender: UIButton) {
         startGameRunning()
-        pauseButton.isEnabled = true
-        pauseButton.alpha = 1.0
         sender.removeFromSuperview()
     }
     private let rectSizeMin:CGFloat = 50.0, rectSizeMax:CGFloat = 150.0
     
     private var rectanglesDict:[UIButton: UIButton] = [:]
-    private var newRectTimeInterval:Double = 1.2
+    public var newRectTimeInterval:Double = 1.2
     private var timerInterval:Double = 1.0
     private var rectTimer:Timer?
     
     private var restart:UIButton?
     
+    public var pause:Bool = false
     
-    private var startGame:Bool = false
+    public var startGame:Bool = false
+    
+    public var modulateButtonColor:UIColor = .white
     
     private var timeRemainingTimer:Timer?
     public var totalTime:Double = 12
@@ -70,8 +78,7 @@ class GameSceneViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        pauseButton.isEnabled = false
-        pauseButton.alpha = 0.0
+        self.view.isMultipleTouchEnabled = true
         // Do any additional setup after loading the view.
         
         
@@ -93,7 +100,13 @@ class GameSceneViewController: UIViewController {
     }
     @objc private func CreateRectangle() {
         //timePassed += newRectTimeInterval
-        if(timePassed<totalTime) {
+        if(timePassed<totalTime && !pause) {
+            var r:CGFloat = 0
+            var g:CGFloat = 0
+            var b:CGFloat = 0
+            var a:CGFloat = 0
+            modulateButtonColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            
             let ScreenSize = self.view.bounds
             let width = CGFloat.random(in: rectSizeMin...rectSizeMax)
             let height = CGFloat.random(in: rectSizeMin...rectSizeMax)
@@ -107,9 +120,9 @@ class GameSceneViewController: UIViewController {
             if(yPos+width>=ScreenSize.height) {
                 yPos-=height
             }
-            let red = CGFloat.random(in: 0.0...1.0)
-            let blue = CGFloat.random(in: 0.0...1.0)
-            let green = CGFloat.random(in: 0.0...1.0)
+            let red = CGFloat.random(in: 0.0...1.0) * r
+            let blue = CGFloat.random(in: 0.0...1.0) * g
+            let green = CGFloat.random(in: 0.0...1.0) * b
             let rectFrame1 = CGRect(x: xPos, y: yPos, width: width, height: height)
             xPos = CGFloat.random(in: 0.0...ScreenSize.width)
             yPos = CGFloat.random(in: 0.0...ScreenSize.height)

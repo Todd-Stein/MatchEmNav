@@ -8,6 +8,10 @@
 import UIKit
 
 class PauseMenu: UIViewController {
+    @IBAction func unwindToPrev(unwindSegue: UIStoryboardSegue) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
