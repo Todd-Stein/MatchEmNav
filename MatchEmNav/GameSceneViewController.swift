@@ -9,6 +9,13 @@ import UIKit
 
 class GameSceneViewController: UIViewController {
 
+    
+    struct highScoreArray {
+        var score1:Int = 0
+        var score2:Int = 0
+        var score3:Int = 0
+    }
+    
     @IBOutlet weak var pauseImage: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,6 +56,8 @@ class GameSceneViewController: UIViewController {
     private var timerInterval:Double = 1.0
     private var rectTimer:Timer?
     
+    public var highestScores:highScoreArray?
+    
     private var pauseTimer:Timer?
     
     private var restart:UIButton?
@@ -85,6 +94,8 @@ class GameSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.isMultipleTouchEnabled = true
+        
+        highestScores = highScoreArray.init()
         // Do any additional setup after loading the view.
         
         
@@ -176,6 +187,18 @@ class GameSceneViewController: UIViewController {
             self.view.addSubview(restartButton)
             restartButton.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
             self.view.bringSubviewToFront(restartButton)
+            if(pairsMatched>highestScores!.score1) {
+                self.highestScores?.score3 = self.highestScores!.score2
+                self.highestScores?.score2 = self.highestScores!.score1
+                self.highestScores?.score1 = pairsMatched
+            }
+            else if(pairsMatched>highestScores!.score2) {
+                highestScores?.score3 = highestScores!.score2
+                highestScores?.score2 = pairsMatched
+            }
+            else if(pairsMatched>highestScores!.score3) {
+                highestScores?.score3 = pairsMatched
+            }
             restart = restartButton
         }
         view.bringSubviewToFront(GameViewLabel)
@@ -253,6 +276,7 @@ class GameSceneViewController: UIViewController {
             
         }
         else {
+            self.view.bringSubviewToFront(pauseImage)
             //timeRemainingTimer = nil
             //timeRemainingTimer?.invalidate()
             if(pauseImage.alpha == 0.0) {

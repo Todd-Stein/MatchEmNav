@@ -9,6 +9,8 @@ import UIKit
 
 class NavigationViewController: UIViewController {
     
+    @IBOutlet weak var highScoreLabel: UILabel!
+    
     @IBOutlet weak var colorWellVal: UIColorWell!
     var gameVC:GameSceneViewController?
     
@@ -57,6 +59,8 @@ class NavigationViewController: UIViewController {
         var a:CGFloat = 1.0
         colorWellVal.selectedColor?.getRed(&r, green: &g, blue: &b, alpha: &a)
         colorWellLabel.text = "Modulate Color Value: (\(Int(r*255)), \(Int(g*255)), \(Int(b*255)))"
+        
+        highScoreLabel.text = "High Scores:\n\nScore 1:\t\(gameVC?.highestScores?.score1 ?? 0)\n\nScore 2:\t\(gameVC?.highestScores?.score2 ?? 0)\n\nScore 3:\t\(gameVC?.highestScores?.score3 ?? 0)"
         
         // Do any additional setup after loading the view.
     }
