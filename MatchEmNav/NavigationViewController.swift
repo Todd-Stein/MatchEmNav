@@ -12,9 +12,16 @@ class NavigationViewController: UIViewController {
     @IBOutlet weak var colorWellVal: UIColorWell!
     var gameVC:GameSceneViewController?
     
+    @IBOutlet weak var colorWellLabel: UILabel!
     
     @objc func updateColorWell(_ sender: Any) {
         gameVC?.modulateButtonColor = colorWellVal?.selectedColor ?? .white
+        var r:CGFloat = 1.0
+        var g:CGFloat = 1.0
+        var b:CGFloat = 1.0
+        var a:CGFloat = 1.0
+        colorWellVal.selectedColor?.getRed(&r, green: &g, blue: &b, alpha: &a)
+        colorWellLabel.text = "Modulate Color Value: (\(Int(r*255)), \(Int(g*255)), \(Int(b*255)))"
     }
     
     @IBAction func gameDurationUpdate(_ sender: Any) {
@@ -36,6 +43,21 @@ class NavigationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         colorWellVal.addTarget(self, action: #selector(updateColorWell), for: .valueChanged)
+        colorWellVal.selectedColor = gameVC?.modulateButtonColor
+        gameDurationValue?.value = gameVC!.totalTime
+        gameSpeedVal.value = Float(gameVC!.newRectTimeInterval/1.2)
+        
+        gameSpeedLabel.text = "Game Speed: \(gameSpeedVal.value)"
+        let temp:Int = Int(gameDurationValue.value)
+        gameDurationLabel?.text = "Game Duration: \(temp)s"
+        
+        var r:CGFloat = 1.0
+        var g:CGFloat = 1.0
+        var b:CGFloat = 1.0
+        var a:CGFloat = 1.0
+        colorWellVal.selectedColor?.getRed(&r, green: &g, blue: &b, alpha: &a)
+        colorWellLabel.text = "Modulate Color Value: (\(Int(r*255)), \(Int(g*255)), \(Int(b*255)))"
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {

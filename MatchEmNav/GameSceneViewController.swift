@@ -9,21 +9,25 @@ import UIKit
 
 class GameSceneViewController: UIViewController {
 
+    @IBOutlet weak var pauseImage: UIImageView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(touches.count)
+        //print(touches.count)
         if(touches.count == 2) {
             pause = !pause
-            print("eqwrgt")
+            //print("eqwrgt")
         }
     }
     
     @IBAction func unwindToPrev(unwindSegue: UIStoryboardSegue) {
-        
+        if(startGame) {
+            pause = false
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navVC = segue.destination as? NavigationViewController
         navVC?.gameVC = self
+        pause = true
     }
     
     
@@ -45,9 +49,11 @@ class GameSceneViewController: UIViewController {
     private var timerInterval:Double = 1.0
     private var rectTimer:Timer?
     
+    private var pauseTimer:Timer?
+    
     private var restart:UIButton?
     
-    public var pause:Bool = false
+    public var pause:Bool = true
     
     public var startGame:Bool = false
     
@@ -100,59 +106,66 @@ class GameSceneViewController: UIViewController {
     }
     @objc private func CreateRectangle() {
         //timePassed += newRectTimeInterval
-        if(timePassed<totalTime && !pause) {
-            var r:CGFloat = 0
-            var g:CGFloat = 0
-            var b:CGFloat = 0
-            var a:CGFloat = 0
-            modulateButtonColor.getRed(&r, green: &g, blue: &b, alpha: &a)
-            
-            let ScreenSize = self.view.bounds
-            let width = CGFloat.random(in: rectSizeMin...rectSizeMax)
-            let height = CGFloat.random(in: rectSizeMin...rectSizeMax)
-            //let tempX:CGFloat = ScreenSize.width-width
-            //let tempY:CGFloat = ScreenSize.height-height
-            var xPos = CGFloat.random(in: 0.0...ScreenSize.width)
-            var yPos = CGFloat.random(in: 0.0...ScreenSize.height)
-            if(xPos+width>=ScreenSize.width) {
-                xPos-=width
+        if(timePassed<totalTime) {
+            if(!pause) {
+                var r:CGFloat = 0
+                var g:CGFloat = 0
+                var b:CGFloat = 0
+                var a:CGFloat = 0
+                modulateButtonColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+                
+                let ScreenSize = self.view.bounds
+                let width = CGFloat.random(in: rectSizeMin...rectSizeMax)
+                let height = CGFloat.random(in: rectSizeMin...rectSizeMax)
+                //let tempX:CGFloat = ScreenSize.width-width
+                //let tempY:CGFloat = ScreenSize.height-height
+                var xPos = CGFloat.random(in: 0.0...ScreenSize.width)
+                var yPos = CGFloat.random(in: 0.0...ScreenSize.height)
+                if(xPos+width>=ScreenSize.width) {
+                    xPos-=width
+                }
+                if(yPos+width>=ScreenSize.height) {
+                    yPos-=height
+                }
+                let red = CGFloat.random(in: 0.0...1.0) * r
+                let blue = CGFloat.random(in: 0.0...1.0) * g
+                let green = CGFloat.random(in: 0.0...1.0) * b
+                let rectFrame1 = CGRect(x: xPos, y: yPos, width: width, height: height)
+                xPos = CGFloat.random(in: 0.0...ScreenSize.width)
+                yPos = CGFloat.random(in: 0.0...ScreenSize.height)
+                if(xPos+width>=ScreenSize.width) {
+                    xPos-=width
+                }
+                if(yPos+width>=ScreenSize.height) {
+                    yPos-=height
+                }
+                let rectFrame2 = CGRect(x: xPos, y: yPos, width: width, height: height)
+                let button1: UIButton = UIButton(frame: rectFrame1)
+                let button2: UIButton = UIButton(frame: rectFrame2)
+                let color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+                button1.backgroundColor = color
+                button2.backgroundColor = color
+                rectanglesDict[button1] = button2
+                self.view.addSubview(button1)
+                self.view.addSubview(button2)
+                button1.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
+                button2.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
+                numPairsAdded+=1
             }
-            if(yPos+width>=ScreenSize.height) {
-                yPos-=height
+            else {
+                timeRemainingTimer?.invalidate()
+                rectTimer?.invalidate()
+                pauseTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(GameSceneViewController.pauseGame), userInfo: nil, repeats: true)
             }
-            let red = CGFloat.random(in: 0.0...1.0) * r
-            let blue = CGFloat.random(in: 0.0...1.0) * g
-            let green = CGFloat.random(in: 0.0...1.0) * b
-            let rectFrame1 = CGRect(x: xPos, y: yPos, width: width, height: height)
-            xPos = CGFloat.random(in: 0.0...ScreenSize.width)
-            yPos = CGFloat.random(in: 0.0...ScreenSize.height)
-            if(xPos+width>=ScreenSize.width) {
-                xPos-=width
-            }
-            if(yPos+width>=ScreenSize.height) {
-                yPos-=height
-            }
-            let rectFrame2 = CGRect(x: xPos, y: yPos, width: width, height: height)
-            let button1: UIButton = UIButton(frame: rectFrame1)
-            let button2: UIButton = UIButton(frame: rectFrame2)
-            let color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-            button1.backgroundColor = color
-            button2.backgroundColor = color
-            rectanglesDict[button1] = button2
-            self.view.addSubview(button1)
-            self.view.addSubview(button2)
-            button1.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
-            button2.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
-            numPairsAdded+=1
         }
         else {
-            for temp in rectanglesDict {
-                temp.key.removeFromSuperview()
-                temp.value.removeFromSuperview()
-            }
+            //for temp in rectanglesDict {
+            //    temp.key.removeFromSuperview()
+            //    temp.value.removeFromSuperview()
+            //}
             print("restart")
             let ScreenSize = self.view.bounds
-            timePassed = 12
+            timePassed = totalTime
             timeRemainingTimer?.invalidate()
             rectTimer?.invalidate()
             startGame = false
@@ -211,6 +224,10 @@ class GameSceneViewController: UIViewController {
             if(sender == restart) {
                 restart?.removeFromSuperview()
                 restart = nil
+                for temp in rectanglesDict {
+                    temp.key.removeFromSuperview()
+                    temp.value.removeFromSuperview()
+                }
                 rectanglesDict.removeAll()
                 timePassed = 0.0
                 pairsMatched = 0
@@ -226,5 +243,24 @@ class GameSceneViewController: UIViewController {
             }
             anim.startAnimation()
         }
+    @objc func pauseGame() {
+        if(!pause) {
+            pauseTimer?.invalidate()
+            if(pauseImage.alpha == 1.0) {
+                pauseImage.alpha = 0.0
+            }
+            startGameRunning()
+            
+        }
+        else {
+            //timeRemainingTimer = nil
+            //timeRemainingTimer?.invalidate()
+            if(pauseImage.alpha == 0.0) {
+                pauseImage.alpha = 1.0
+            }
+            else {
+                pauseImage.alpha = 0.0
+            }
+        }
+    }
 }
-
