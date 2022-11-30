@@ -52,6 +52,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="Zqe-js-071">
+                    <connections>
+                        <segue destination="qhy-37-L1p" kind="show" id="gEZ-Yj-1pH"/>
+                    </connections>
+                </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="6xc-JB-4Aw">
                     <connections>
                         <segue destination="qhy-37-L1p" kind="show" id="Kcr-hi-Zss"/>
@@ -93,7 +98,7 @@
                                 <rect key="frame" x="136" y="239" width="142" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </colorWell>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="12" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-im-M30">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minimumValue="15" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-im-M30">
                                 <rect key="frame" x="241" y="395" width="94" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -149,6 +154,9 @@
             <point key="canvasLocation" x="847.82608695652175" y="310.71428571428572"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gEZ-Yj-1pH"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="pause.fill" catalog="system" width="117" height="128"/>

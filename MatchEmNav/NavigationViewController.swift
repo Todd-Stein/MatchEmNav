@@ -47,7 +47,7 @@ class NavigationViewController: UIViewController {
         colorWellVal.addTarget(self, action: #selector(updateColorWell), for: .valueChanged)
         colorWellVal.selectedColor = gameVC?.modulateButtonColor
         gameDurationValue?.value = gameVC!.totalTime
-        gameSpeedVal.value = Float(gameVC!.newRectTimeInterval/1.2)
+        gameSpeedVal.value = Float(1.2/gameVC!.newRectTimeInterval)
         
         gameSpeedLabel.text = "Game Speed: \(gameSpeedVal.value)"
         let temp:Int = Int(gameDurationValue.value)
@@ -60,7 +60,7 @@ class NavigationViewController: UIViewController {
         colorWellVal.selectedColor?.getRed(&r, green: &g, blue: &b, alpha: &a)
         colorWellLabel.text = "Modulate Color Value: (\(Int(r*255)), \(Int(g*255)), \(Int(b*255)))"
         
-        highScoreLabel.text = "High Scores:\n\nScore 1:\t\(gameVC?.highestScores?.score1 ?? 0)\n\nScore 2:\t\(gameVC?.highestScores?.score2 ?? 0)\n\nScore 3:\t\(gameVC?.highestScores?.score3 ?? 0)"
+        highScoreLabel.text = "High Scores:\n\nScore 1:\t\(gameVC?.score1 ?? 0)\n\nScore 2:\t\(gameVC?.score2 ?? 0)\n\nScore 3:\t\(gameVC?.score3 ?? 0)"
         
         // Do any additional setup after loading the view.
     }

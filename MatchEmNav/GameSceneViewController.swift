@@ -10,11 +10,9 @@ import UIKit
 class GameSceneViewController: UIViewController {
 
     
-    struct highScoreArray {
-        var score1:Int = 0
-        var score2:Int = 0
-        var score3:Int = 0
-    }
+    public var score1:Int = 0
+    public var score2:Int = 0
+    public var score3:Int = 0
     
     @IBOutlet weak var pauseImage: UIImageView!
     
@@ -47,6 +45,8 @@ class GameSceneViewController: UIViewController {
     
     @IBAction func startButton(_ sender: UIButton) {
         startGameRunning()
+        //pauseGame()
+        //pauseTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(GameSceneViewController.pauseGame), userInfo: nil, repeats: true)
         sender.removeFromSuperview()
     }
     private let rectSizeMin:CGFloat = 50.0, rectSizeMax:CGFloat = 150.0
@@ -56,7 +56,6 @@ class GameSceneViewController: UIViewController {
     private var timerInterval:Double = 1.0
     private var rectTimer:Timer?
     
-    public var highestScores:highScoreArray?
     
     private var pauseTimer:Timer?
     
@@ -69,7 +68,7 @@ class GameSceneViewController: UIViewController {
     public var modulateButtonColor:UIColor = .white
     
     private var timeRemainingTimer:Timer?
-    public var totalTime:Double = 12
+    public var totalTime:Double = 15
     private var timePassed:Double = 0 {
         didSet{GameViewLabel?.text = gameInfo}
     }
@@ -95,7 +94,7 @@ class GameSceneViewController: UIViewController {
         super.viewDidLoad()
         self.view.isMultipleTouchEnabled = true
         
-        highestScores = highScoreArray.init()
+        
         // Do any additional setup after loading the view.
         
         
@@ -187,17 +186,17 @@ class GameSceneViewController: UIViewController {
             self.view.addSubview(restartButton)
             restartButton.addTarget(self, action: #selector(self.handleTouch(sender:)),for: .touchUpInside)
             self.view.bringSubviewToFront(restartButton)
-            if(pairsMatched>highestScores!.score1) {
-                self.highestScores?.score3 = self.highestScores!.score2
-                self.highestScores?.score2 = self.highestScores!.score1
-                self.highestScores?.score1 = pairsMatched
+            if(pairsMatched>score1) {
+                score3 = score2
+                score2 = score1
+                score1 = pairsMatched
             }
-            else if(pairsMatched>highestScores!.score2) {
-                highestScores?.score3 = highestScores!.score2
-                highestScores?.score2 = pairsMatched
+            else if(pairsMatched>score2) {
+                score3 = score2
+                score2 = pairsMatched
             }
-            else if(pairsMatched>highestScores!.score3) {
-                highestScores?.score3 = pairsMatched
+            else if(pairsMatched>score3) {
+                score3 = pairsMatched
             }
             restart = restartButton
         }
@@ -276,6 +275,12 @@ class GameSceneViewController: UIViewController {
             
         }
         else {
+            if((rectTimer?.isValid) != nil) {
+                rectTimer?.invalidate()
+            }
+            if((timeRemainingTimer?.isValid) != nil) {
+                timeRemainingTimer?.invalidate()
+            }
             self.view.bringSubviewToFront(pauseImage)
             //timeRemainingTimer = nil
             //timeRemainingTimer?.invalidate()
